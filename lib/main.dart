@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/gestures.dart';
-import 'fly.dart';
+import 'fly-game.dart';
 import 'package:flame/flame.dart';
 
 void main() async {
   Util gameUtil = Util();
-  gameUtil.setOrientation(DeviceOrientation.portraitUp);
-  gameUtil.fullScreen();
+  await gameUtil.setOrientation(DeviceOrientation.portraitUp);
+  await gameUtil.fullScreen();
 
-  Flame.images.loadAll(<String>['angrybird.png']);
+  Flame.images.loadAll(<String>['angrybird.png', 'start.png']);
 
-  Fly fly = Fly();
+  FlyGame fly = FlyGame();
 
   runApp(fly.widget);
 
