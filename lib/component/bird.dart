@@ -3,9 +3,6 @@ import 'dart:ui';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 
-/*
-其他公式 mgh=1/2mv^2
- */
 class Bird {
   final FlyGame game;
   final Sprite bird = new Sprite('angrybird.png');
@@ -17,10 +14,13 @@ class Bird {
   double _lastFrameEndSpeed = 0;
 
   // 点击屏幕后获得的向上飞行的初速度 像素每秒
-  double _flyUpSpeed = 400;
+  static double _flyUpSpeed = 450;
 
   // 重力加速度 像素/秒平方
-  double _g = 980;
+  static double _g = 1200;
+
+  // 点击屏幕后可以飞行的最大高度，根据公式 mgh=1/2mv^2  =>  h=(0.5v^2)/g 得到
+  static double flyHeight = (0.5 * _flyUpSpeed * _flyUpSpeed) / _g;
 
   Bird(this.game, Size screenSize) {
     birdRect = Rect.fromCenter(center: Offset(screenSize.width * 0.35, screenSize.height / 2), width: 50, height: 50);

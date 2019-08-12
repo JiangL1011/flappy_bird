@@ -25,7 +25,7 @@ class FlyGame extends Game {
 
     if (start) {
       // 绘制小鸟
-//      bird.render(canvas);
+      bird.render(canvas);
       gameBorder.render(canvas);
     } else {
       startSprite.renderRect(canvas, startRect);
@@ -36,7 +36,7 @@ class FlyGame extends Game {
   void update(double t) {
     if (bird == null) return;
     if (start) {
-//      bird.update(t);
+      bird.update(t);
       gameBorder.update(t);
     }
   }
