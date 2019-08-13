@@ -1,21 +1,16 @@
 import 'dart:ui';
 
-class BarrierRect extends Rect {
-  BarrierRect.fromLTWH(double left, double top, double width, double height) : super.fromLTWH(left, top, width, height);
+class Barrier {
+  // 这个代表这个障碍物的矩形
+  Rect rect;
 
+  // 可见即为真实障碍物，撞到则游戏结束，不可见则不是障碍物，可以触碰
+  bool visibility = true;
 
-  bool _barrier = true;
+  Barrier(this.rect);
 
-  bool get isBarrier {
-    return this._barrier;
-  }
-
-  set isBarrier(bool isBarrier) {
-    this._barrier = isBarrier;
-  }
-
-  BarrierRect shift(Offset offset) {
-    Rect rect = super.shift(offset);
-    return rect as BarrierRect;
+  // 移动矩形
+  void shift(Offset offset) {
+    rect = rect.shift(offset);
   }
 }
