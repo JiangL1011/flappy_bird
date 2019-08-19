@@ -2,11 +2,14 @@ import '../fly-game.dart';
 import 'dart:ui';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flame/flare_animation.dart';
 
 class Bird {
   final FlyGame game;
   final Sprite bird = new Sprite('angrybird.png');
   Rect birdRect;
+  FlareAnimation helicopterFlare;
+  bool helicopterLoaded = false;
 
   // 上一帧结束时刻的速度
   // 用于和update中的时间增量计算位移
@@ -24,16 +27,24 @@ class Bird {
 
   Bird(this.game, Size screenSize) {
     birdRect = Rect.fromCenter(center: Offset(screenSize.width * 0.35, screenSize.height / 2), width: 50, height: 50);
+    loadHelicopterFlare(screenSize);
   }
 
   void render(Canvas canvas) {
-    bird.renderRect(canvas, birdRect);
+//    bird.renderRect(canvas, birdRect);
+    if (helicopterLoaded) {
+      helicopterFlare.render(canvas);
+    }
   }
 
   void update(double t) {
     double offsetY = _gravity(t, _lastFrameEndSpeed);
     _lastFrameEndSpeed -= (_g * t);
-    birdRect = birdRect.shift(Offset(0, offsetY));
+//    birdRect = birdRect.shift(Offset(0, offsetY));
+    if (helicopterLoaded) {
+      helicopterFlare.y += offsetY;
+      helicopterFlare.update(t);
+    }
   }
 
   void onTapDown(TapDownDetails d) {
@@ -47,5 +58,19 @@ class Bird {
   double _gravity(double time, double v) {
     // 由于游戏的Y轴坐标的0点在顶部，所以计算出的距离应取相反数
     return -(v * time - 0.5 * _g * time * time);
+  }
+
+  // 使用flare动画
+  void loadHelicopterFlare(Size screenSize) async {
+    helicopterFlare = await FlareAnimation.load("assets/flare/helicopter.flr");
+    helicopterFlare.updateAnimation("fly");
+
+    helicopterFlare.x = screenSize.width * 0.35;
+    helicopterFlare.y = screenSize.height / 2;
+
+    helicopterFlare.width = 180;
+    helicopterFlare.height = 180;
+
+    helicopterLoaded = true;
   }
 }
