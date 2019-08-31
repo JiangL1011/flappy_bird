@@ -7,7 +7,7 @@ import 'package:flame/flame.dart';
 
 void main() async {
   Util gameUtil = Util();
-  await gameUtil.setOrientation(DeviceOrientation.portraitUp);
+  await gameUtil.setOrientation(DeviceOrientation.landscapeRight);
   await gameUtil.fullScreen();
 
   Flame.images.loadAll(<String>['angrybird.png', 'start.png']);

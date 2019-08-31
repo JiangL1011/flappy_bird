@@ -31,20 +31,20 @@ class Bird {
   }
 
   void render(Canvas canvas) {
-//    bird.renderRect(canvas, birdRect);
-    if (helicopterLoaded) {
-      helicopterFlare.render(canvas);
-    }
+    bird.renderRect(canvas, birdRect);
+//    if (helicopterLoaded) {
+//      helicopterFlare.render(canvas);
+//    }
   }
 
   void update(double t) {
     double offsetY = _gravity(t, _lastFrameEndSpeed);
     _lastFrameEndSpeed -= (_g * t);
-//    birdRect = birdRect.shift(Offset(0, offsetY));
-    if (helicopterLoaded) {
-      helicopterFlare.y += offsetY;
-      helicopterFlare.update(t);
-    }
+    birdRect = birdRect.shift(Offset(0, offsetY));
+//    if (helicopterLoaded) {
+//      helicopterFlare.y += offsetY;
+//      helicopterFlare.update(t);
+//    }
   }
 
   void onTapDown(TapDownDetails d) {
